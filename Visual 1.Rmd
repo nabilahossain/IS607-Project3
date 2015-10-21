@@ -1,0 +1,42 @@
+---
+title: "Visualization 1 Project 3"
+author: "Nabila Hossain"
+date: "October 20, 2015"
+output: html_document
+---
+
+```{r}
+library(curl)
+library(dplyr)
+library(tidyr)
+Oscar_table <- read.csv(file="https://raw.githubusercontent.com/pm0kjp/IS607_Project3/master/data/tidy_oscar_winners.csv", header=TRUE, sep=",")
+head(Oscar_table, 3)
+```
+
+Table that has only the information about all the movies that won best picture, best editing or did not win either of them.
+```{r}
+Oscar_tsub <- data.frame(Oscar_table[c(2:6)])
+head(Oscar_tsub)
+```
+
+
+Table with only the movies that won __BOTH__ best picture and best editing.
+```{r}
+wp_we <- subset(Oscar_tsub, Best_Picture != 0 & Best_Editing != 0)
+nrow(wp_we)
+```
+
+
+Table with only the movies that __ONLY__ won best picture but __NOT__ best editing.
+```{r}
+wp_le <- subset(Oscar_tsub, Best_Picture != "0" & Best_Editing =="0" & Best_Directing != 0)
+nrow(wp_le)
+```
+
+
+Table with only the movies that won ONLY best editing but __NOT__ best Picture.
+```{r}
+lp_we <- subset(Oscar_tsub, Best_Picture != "1" & Best_Editing =="1")
+nrow(lp_we)
+```
+
